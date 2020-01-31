@@ -5,6 +5,7 @@
 $securepawd = ConvertTo-SecureString $pwd -AsPlainText -Force
 New-LocalUser $username -Password $securepawd -Description "Beheerder"
 Add-LocalGroupMember -Group "Administrators" -Member $username
+Add-LocalGroupMember -Group "Remote Desktop Users" -Member "Everyone"
 (Get-WmiObject -class "Win32_TSGeneralSetting" -Namespace root\cimv2\terminalservices -ComputerName "localhost" -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0)
 $lijst=Get-WinUserLanguageList
 $lijst.insert(0, 'nl-BE')
