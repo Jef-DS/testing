@@ -3,4 +3,5 @@ $lijst=Get-WinUserLanguageList
 $lijst.insert(0, 'nl-BE')
 Set-WinUserLanguageList $lijst -Force
 New-PSDrive -Name HKU -PSProvider Registry -Scope Global -Root HKEY_USERS
-Set-ItemProperty -Path "HKU:\.Default\Keyboard Layout\preload" -Name 1 -Value "00000813"
+Set-ItemProperty -Path "HKU:\.Default\Keyboard Layout\preload" -Name 1 -Value "00000409"
+Set-ItemProperty -Path "HKU:\.Default\Keyboard Layout\preload" -Name 2 -Value "00000813"
