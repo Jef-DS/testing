@@ -2,8 +2,8 @@
     [string]$pwd,
     [string]$username = 'administrator'
 )
-Get-LocalUser "administrator" -ErrorVariable isadmin -ErrorAction SilentlyContinue
-if (-not $isadmin){
+Get-LocalUser "administrator" -ErrorVariable isnotadmin -ErrorAction SilentlyContinue
+if (-not $isnotadminadmin){
 	$securepawd = ConvertTo-SecureString $pwd -AsPlainText -Force
 	New-LocalUser $username -Password $securepawd -Description "Beheerder"
 	Add-LocalGroupMember -Group "Administrators" -Member $username
