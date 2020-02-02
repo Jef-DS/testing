@@ -8,12 +8,12 @@ if (-not $isadmin){
 	New-LocalUser $username -Password $securepawd -Description "Beheerder"
 	Add-LocalGroupMember -Group "Administrators" -Member $username
 }
-$cred = New-Object System.Management.Automation.PSCredential($username, $securepwd)
+<#$cred = New-Object System.Management.Automation.PSCredential($username, $securepwd)
 try{
     Start-Process -FilePath "cmd.exe" -LoadUserProfile -Credential $cred -ArgumentList "/c"
 }catch{
     Write-Error "verwachte fout in Start-Process"
-}
+}#>
 $localhost = $env:COMPUTERNAME
 $computer = "client" + $localhost.substring($localhost.length-3, 3)
 $rdp = @"
