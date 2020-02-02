@@ -2,10 +2,13 @@
     [string]$pwd,
     [string]$username = 'administrator'
 )
-$securepawd = ConvertTo-SecureString $pwd -AsPlainText -Force
-New-LocalUser $username -Password $securepawd -Description "Beheerder"
-Add-LocalGroupMember -Group "Administrators" -Member $username
-<#$cred = New-Object System.Management.Automation.PSCredential($username, $securepwd)
+Get-LocalUser "administrator" -ErrorVariable isadmin -ErrorAction SilentlyContinue
+if (-not $isadmin){
+	$securepawd = ConvertTo-SecureString $pwd -AsPlainText -Force
+	New-LocalUser $username -Password $securepawd -Description "Beheerder"
+	Add-LocalGroupMember -Group "Administrators" -Member $username
+}
+$cred = New-Object System.Management.Automation.PSCredential($username, $securepwd)
 try{
     Start-Process -FilePath "cmd.exe" -LoadUserProfile -Credential $cred -ArgumentList "/c"
 }catch{
@@ -64,6 +67,5 @@ drivestoredirect:s:
 enablecredsspsupport:i:0
 "@
 
-$path = "c:\users\administrator\desktop\client.rdp"
+$path = "${env:PUBLIC}\Desktop\client.rdp"
 $rdp | Set-Content $path
-#>
